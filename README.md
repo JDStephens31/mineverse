@@ -1,2 +1,3 @@
-# mineverse
-Like the metaverse, but in minecraft
+# Mineverse
+Like the metaverse, but in minecraft.
+
