@@ -30,19 +30,6 @@ mainChain.replaceChain(chain.blockchain);
 let a = new Block("Hello");
 chain.addNewBlock(a);
 
-//Creating a currency
-//Init Chain for the currency
-let subChain = new SubChain('Test Chain');
-let subTChain = new SubChain('SecondChain');
-
-//Create Currency (details) - new CurInfoBlock(SUB CHAIN, PREV-HASH, AMOUNT, NAME, ABREVIATION, LIQUIDITY)
-let curT = new CurInfoBlock(subChain.blockchain, chain.obtainLatestBlock.hash, 1000000000, 'Jon Coin', 'JC', 1000000000)
-let curO = new CurInfoBlock(subTChain.blockchain, chain.obtainLatestBlock.hash, 10000000, 'Not Jons Coin', 'NJC', 100000000000)
-
-//Add the currency to the chain
-chain.addNewBlock(curT)
-chain.addNewBlock(curO)
-
 //Test wallet one
 let Wallet = new wallet()
 chain.addNewBlock(Wallet)
@@ -51,10 +38,6 @@ chain.addNewBlock(Wallet)
 Wallet = new wallet()
 console.log(Wallet.publicKey)
 chain.addNewBlock(Wallet)
-
-
-//Sending 10 From Test Acct ONE to Test Acct TWO - send(RECIPIENT, SENDER, AMOUNT, CURRENCY)
-// chain.send('0424205e88c269746bd7851d8c94808d83e8a90981b5cf2aec1b0c44d8a8af97c274640f91e3c860da85954155ece21ad317ed777c6cbd0fd5d60596399e1e0391', '0424205e88c269746bd7851d8c94808d83e8a90981b5cf2aec1b0c44d8a8af97c274640f91e3c860da85954155ece21ad317ed777c6cbd0fd5d60596399e1e0390', 1, 'NJC')
 
 //Listen
 app.listen(8080, () => {
@@ -67,37 +50,25 @@ app.get("/", (req, res) => {
     res.json(chain.blockchain);
 })
 
+//Buy Currency
 app.post('/buyCur', (req, res)=>{
-    chain.buyCur(req.body.publicKey, req.body.cur, req.body.amount);
-    res.sendStatus(200);
-})
-app.post('/sellCur', (req, res)=>{
-    chain.sellCur(req.body.publicKey, req.body.cur, req.body.amount);
+    chain.buyCur(req.body.publicKey, req.body.cur, req.body.amount)
     res.sendStatus(200);
 })
 
+//Sell Currency
+app.post('/sellCur', (req, res)=>{
+    res.send(chain.sellCur(req.body.publicKey, req.body.cur, req.body.amount));
+})
+
+//Create Currency
+app.post('/createCurrency', (req, res)=>{
+    res.send(chain.createCurrency(req.body.name, req.body.amount, req.body.abv, req.body.liquid, req.body.owner));
+})
+
+//Add balance to an Account
 app.post('/addBalance', (req, res) => {
     chain.addBalance(req.body.publicKey, req.body.amount);
     mainChain.replaceChain(chain.blockchain);
     res.sendStatus(200)
 })
-
-
-
-
-// Validating Chain and Replacing old chain if valid
-// function validate() {
-
-//     setTimeout(function () {
-//         if (chain.blockchain !== mainChain.blockchain) {
-//             mainChain.replaceChain(chain.blockchain);
-//         }
-//         // Again
-//         validate();
-
-//         // Every 3 sec
-//     }, 10000);
-// }
-
-// // Begins
-// validate();

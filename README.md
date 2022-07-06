@@ -13,7 +13,8 @@ This will start the chain to see the chain you'll visit http://localhost:8080/
 
 # Routes
 *Note names of routes might change so check back here if something breaks*
-1) /buyCur - takes three paramaters (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
-2) /sellCur - takes three paramaters (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
-3) /send - takes four paramaters (RECIPIENT, SENDER, AMOUNT OF TOKENS, CURRENCY ABREVIATION)
+1) /buyCur - (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
+2) /sellCur - (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
+3) /send - (RECIPIENT, SENDER, AMOUNT OF TOKENS, CURRENCY ABREVIATION)
+4) /createCurrency - (NAME OF CUR, AMOUNT OF TOKENS, CURRRENCY ABREVIATION, LIQUIDITY, OWNER) *When Createing a Currnecy the owner only gets 5% of the total supply to keep from Whales Crashing Price*
 

@@ -6,7 +6,7 @@ class wallet { // Our Block Class
     constructor(prevHash = "") {
         this.timestamp = Date.now(); // Get the current timestamp
         this.type = 'wallet' //type of block
-        this.data = [{"JC":10}] // Store whatever data is relevant 
+        this.data = [{"PLACEHOLDER":0}] // Store whatever data is relevant 
         this.prevHash = prevHash // Store the previous block's hash
         this.hash = this.computeHash() // Compute this block's hash
         this.balance = 10000 //Balance of the gov token
