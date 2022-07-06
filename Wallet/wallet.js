@@ -11,8 +11,8 @@ class wallet { // Our Block Class
         this.hash = this.computeHash() // Compute this block's hash
         this.balance = 10000 //Balance of the gov token
         this.publicKey = this.genKeyPair().getPublic().encode('hex'); // Getting Public Key
-        this.keyWords = this.getWordKeys();
-        this.keyHash = this.computekeyWordHash();
+        this.keyWords = this.getWordKeys(); // Getting Keywords
+        this.keyHash = this.computekeyWordHash(); // Computing Hash based on keywords
     }
     computeHash() { // Compute this Block's hash
         let strBlock = this.prevHash + this.timestamp + JSON.stringify(this.data) // Stringify the block's data

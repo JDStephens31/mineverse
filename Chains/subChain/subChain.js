@@ -1,6 +1,7 @@
 const crypto = require('crypto'); // Import NodeJS's Crypto Module
 const Block = require("../../Blocks/data-block")
 const CurInfoBlock = require('./curInfoBlock');
+const transaction = require('../../Blocks/transaction');
 
 class SubChain { // Our Blockchain Object
     constructor(name) {
@@ -10,7 +11,7 @@ class SubChain { // Our Blockchain Object
         this.hash = this.computeChainHash();
     }
     startGenesisBlock() {
-        return new CurInfoBlock([],'', 0, 'Genesis Cur', 'GEN', 0) // Create an empty block to start
+        return new transaction("Genisis Transaction", "GenPubKey", 0, 'GEN') // Create an empty block to start
     }
     obtainLatestBlock() {
         return this.blockchain[this.blockchain.length - 1] // Get last block on the chain

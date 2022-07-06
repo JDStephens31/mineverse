@@ -72,3 +72,8 @@ app.post('/addBalance', (req, res) => {
     mainChain.replaceChain(chain.blockchain);
     res.sendStatus(200)
 })
+
+//Add New transaction
+app.post('/newTrans', (req, res)=> {
+    res.send(chain.newTransaction(req.body.data, req.body.publicKey, req.body.amount, req.body.cur));
+})

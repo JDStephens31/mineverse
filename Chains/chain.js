@@ -1,6 +1,7 @@
 const Block = require("../Blocks/data-block")
 const crypto = require('crypto');
 const CurInfoBlock = require("./subChain/curInfoBlock");
+const transaction = require('../Blocks/transaction');
 const SubChain = require("./subChain/subChain");
 
 
@@ -120,6 +121,7 @@ class BlockChain {
                     if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
                         for (let e = 0; e < amount; e++) {
                             this.blockchain[i].data[x][cur] += 1;
+                            this.newTransaction("buy", publicKey, amount, cur);
                             this.calcPrices();
                         }
                     }
@@ -174,6 +176,7 @@ class BlockChain {
                     if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
                         for (let e = 0; e < amount; e++) {
                             this.blockchain[i].data[x][cur] -= 1;
+                            this.newTransaction("sell", publicKey, amount, cur);
                             this.calcPrices();
                         }
                     }
@@ -234,6 +237,7 @@ class BlockChain {
                             }
                             break;
                         }
+                        this.newTransaction("send", publicKey, amount, cur);
                         return;
                     }
                     for (let x = 0; x < wallet.length; x++) {
@@ -275,6 +279,20 @@ class BlockChain {
 
         }
         
+    }
+    newTransaction(data, pubKey, amount, cur) {
+        let trans = new transaction(data, pubKey, amount, cur);
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if(cur === 'def') {
+                this.addNewBlock(trans);
+                return true;
+            } else if(this.blockchain[i].abv === cur) {
+                trans.prevHash = this.blockchain[i].data[this.blockchain[i].data.length - 1].hash;
+                this.blockchain[i].data.push(trans);
+                return true;
+            }
+            
+        }
     }
 }
 module.exports = BlockChain;

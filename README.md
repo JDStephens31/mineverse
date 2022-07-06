@@ -27,5 +27,6 @@ This will start the chain to see the chain you'll visit http://localhost:8080/ t
 /sellCur - (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
 /send - (RECIPIENT, SENDER, AMOUNT OF TOKENS, CURRENCY ABREVIATION)
 /createCurrency - (NAME OF CUR, AMOUNT OF TOKENS, CURRRENCY ABREVIATION, LIQUIDITY, OWNER) 
-/addBalance - (PUBLIC KEY, AMOUNT) *Adds balance to account*
+/addBalance - (PUBLIC KEY, AMOUNT)
+/newTrans - (DATA, PUBLIC KEY, AMOUNT OF TOKENS, CURRENCY ABV)
 ```
