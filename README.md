@@ -7,9 +7,14 @@ Like the metaverse, but in minecraft.
 3) The ability to have a type of stock market.
 
 # How to launch chain
-1) in terminal type "npm intall"
-2) in terminal type "npm run dev"
-This will start the chain to see the chain you'll visit http://localhost:8080/
+```bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:8080
+$ npm run dev
+```
+This will start the chain to see the chain you'll visit http://localhost:8080/ to see the data as JSON
 
 # Routes
 *Note names of routes might change so check back here if something breaks*
@@ -17,4 +22,5 @@ This will start the chain to see the chain you'll visit http://localhost:8080/
 2) /sellCur - (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
 3) /send - (RECIPIENT, SENDER, AMOUNT OF TOKENS, CURRENCY ABREVIATION)
 4) /createCurrency - (NAME OF CUR, AMOUNT OF TOKENS, CURRRENCY ABREVIATION, LIQUIDITY, OWNER) *When Createing a Currnecy the owner only gets 5% of the total supply to keep from Whales Crashing Price*
+5) /addBalance - (PUBLIC KEY, AMOUNT) *Adds balance to account*
 
