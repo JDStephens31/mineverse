@@ -296,5 +296,25 @@ class BlockChain {
             
         }
     }
+    startVote(hash) {
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if(this.blockchain[i].hash === hash){
+                let endTime = this.blockchain[i].endTime;
+                if(Date.now() === endTime){
+                    this.endVote(hash);
+                }
+                break;
+            }
+        }
+    }
+    endVote(hash) {
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if(this.blockchain[i].hash === hash){
+                this.blockchain[i].running = false;
+                break;
+            }
+            
+        }
+    }
 }
 module.exports = BlockChain;
