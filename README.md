@@ -4,7 +4,8 @@ Like the metaverse, but in minecraft.
 # Features
 - [x] Ability to Create Currencies
 - [x] Ability to send any Currency to someone
-- [x] Ablility to buy and sell any currency
+- [x] Ability to buy and sell any currency
+- [ ] Ability to vote based on the amount of balance
 - [ ] Java Minecraft mod to connect to the chain via API
 - [ ] Ability to send items to the chain on a mc server then pull them down on a different server 
 - [ ] Ability to buy chunks and have ownership on the chain
