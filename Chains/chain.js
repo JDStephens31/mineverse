@@ -93,13 +93,15 @@ class BlockChain {
         for (let i = 0; i < this.blockchain.length; i++) {
             if (this.blockchain[i].publicKey === publicKey) {
                 balance = this.blockchain[i].balance;
-                for (let x = 0; x < this.blockchain[i].data.length; x++) {
+                for (let x = 1; x < this.blockchain[i].data.length; x++) {
                     if (balance < amount * currencyP) {
                         console.error("Error: Not Enough Funds")
-                    } else if (typeof (this.blockchain[i].data[x][cur]) === 'undefined') {
+                        return false;
+                    } else if (typeof(this.blockchain[i].data[x]) === 'undefined') {
                         this.blockchain[i].data.push({ [cur]: 0 })
+                        console.log(this.blockchain[i].data[x])
                         this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
-                        console.log('Balance Updated With Data Updating')
+                        console.log('Balance Updated With Data Updating');
                         return true;
                     } else if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
                         this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
@@ -119,9 +121,9 @@ class BlockChain {
                 this.blockchain[i].balance = balance - priceFAW;
                 for (let x = 0; x < this.blockchain[i].data.length; x++) {
                     if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
+                        this.newTransaction("buy", publicKey, amount, cur);
                         for (let e = 0; e < amount; e++) {
                             this.blockchain[i].data[x][cur] += 1;
-                            this.newTransaction("buy", publicKey, amount, cur);
                             this.calcPrices();
                         }
                     }
@@ -174,9 +176,9 @@ class BlockChain {
                 this.blockchain[i].balance = balance + priceFAW;
                 for (let x = 0; x < this.blockchain[i].data.length; x++) {
                     if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
+                        this.newTransaction("sell", publicKey, amount, cur);
                         for (let e = 0; e < amount; e++) {
                             this.blockchain[i].data[x][cur] -= 1;
-                            this.newTransaction("sell", publicKey, amount, cur);
                             this.calcPrices();
                         }
                     }
