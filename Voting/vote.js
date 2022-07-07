@@ -1,11 +1,11 @@
 const crypto = require('crypto'); // Import NodeJS's Crypto Module
 class voting {
-    constructor(prevHash = ""){
+    constructor(data, prevHash = ""){
         this.timestamp = Date.now(); 
-        this.endTime = this.timestamp + 60000;
+        this.endTime = this.timestamp + 30000;
         this.prevHash = prevHash;
         this.hash = this.computeHash();
-        this.data = [];
+        this.data = [data];
         this.running = true;
 
     }

@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const CurInfoBlock = require("./subChain/curInfoBlock");
 const transaction = require('../Blocks/transaction');
 const SubChain = require("./subChain/subChain");
-
+const vote = require('../Voting/vote')
 
 class BlockChain {
     constructor() {
@@ -97,7 +97,7 @@ class BlockChain {
                     if (balance < amount * currencyP) {
                         console.error("Error: Not Enough Funds")
                         return false;
-                    } else if (typeof(this.blockchain[i].data[x]) === 'undefined') {
+                    } else if (typeof (this.blockchain[i].data[x]) === 'undefined') {
                         this.blockchain[i].data.push({ [cur]: 0 })
                         console.log(this.blockchain[i].data[x])
                         this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
@@ -280,40 +280,77 @@ class BlockChain {
             }
 
         }
-        
+
     }
     newTransaction(data, pubKey, amount, cur) {
         let trans = new transaction(data, pubKey, amount, cur);
         for (let i = 0; i < this.blockchain.length; i++) {
-            if(cur === 'def') {
+            if (cur === 'def') {
                 this.addNewBlock(trans);
                 return true;
-            } else if(this.blockchain[i].abv === cur) {
+            } else if (this.blockchain[i].abv === cur) {
                 trans.prevHash = this.blockchain[i].data[this.blockchain[i].data.length - 1].hash;
                 this.blockchain[i].data.push(trans);
                 return true;
             }
-            
+
         }
     }
-    startVote(hash) {
-        for (let i = 0; i < this.blockchain.length; i++) {
-            if(this.blockchain[i].hash === hash){
-                let endTime = this.blockchain[i].endTime;
-                if(Date.now() === endTime){
-                    this.endVote(hash);
+    createVote(statement) {
+        let options = {
+            "vote": {
+                "statement": [statement],
+                "Yes": {
+                    "votes": 0
+                },
+                "No": {
+                    "votes": 0
                 }
-                break;
             }
         }
+        let newVote = new vote(options);
+        this.addNewBlock(newVote);
+        let endTime = newVote.endTime;
+        let hash = newVote.hash;
+        let setTime = endTime - Date.now();
+        setTimeout(() => {
+            this.endVote(hash);
+        }, setTime);
     }
     endVote(hash) {
         for (let i = 0; i < this.blockchain.length; i++) {
-            if(this.blockchain[i].hash === hash){
+            if (this.blockchain[i].hash === hash) {
                 this.blockchain[i].running = false;
-                break;
+                return (this.blockchain[i].hash);
             }
-            
+        }
+    }
+    vote(hash, vote) {
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if (this.blockchain[i].hash === hash) {
+                if (this.blockchain[i].running === false) {
+                    return false;
+                } else {
+                    if (vote === 0) {
+                        for (let i = 0; i < this.blockchain.length; i++) {
+                            if (this.blockchain[i].hash === hash) {
+                                this.blockchain[i].data[0].vote.Yes.votes += 1;
+                                return true;
+                            }
+                        }
+                    } else if (vote === 1) {
+                        for (let i = 0; i < this.blockchain.length; i++) {
+                            if (this.blockchain[i].hash === hash) {
+                                this.blockchain[i].data[0].vote.No.votes += 1;
+                                return true;
+                            }
+                        }
+                    } else {
+                        console.error("Error: Vote is Invalid");
+                        return false;
+                    }
+                }
+            }
         }
     }
 }

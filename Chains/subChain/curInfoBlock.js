@@ -1,7 +1,7 @@
 const crypto = require('crypto'); // Import NodeJS's Crypto Module
 
 class CurInfoBlock { // Our Block Class
-    constructor(data, prevHash = "", amount, name, abv, liquid, index, owner) {
+    constructor(data, prevHash = "", amount, name, abv, liquid, owner) {
         this.timestamp = Date.now(); // Get the current timestamp
         this.type = 'cur';
         this.data = data; // Store whatever data is relevant 
@@ -12,7 +12,6 @@ class CurInfoBlock { // Our Block Class
         this.abv = abv;
         this.liquidity = liquid;
         this.price = 0;
-        this.index = index;
         this.owner = owner;
     }
     computeHash() { // Compute this Block's hash

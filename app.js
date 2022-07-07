@@ -77,3 +77,15 @@ app.post('/addBalance', (req, res) => {
 app.post('/newTrans', (req, res)=> {
     res.send(chain.newTransaction(req.body.data, req.body.publicKey, req.body.amount, req.body.cur));
 })
+
+//Creates Voting
+app.post('/newVote', (req, res)=> {
+    chain.createVote(req.body.statement);
+    res.sendStatus(200);
+})
+
+//Vote
+app.post('/vote', (req, res)=> {
+    chain.vote(req.body.hash, req.body.vote);
+    res.sendStatus(200);
+})
