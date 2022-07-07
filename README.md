@@ -20,13 +20,5 @@ $ npm run dev
 ```
 This will start the chain to see the chain you'll visit http://localhost:8080/ to see the data as JSON
 
-# Routes
-
-```
-/buyCur - (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
-/sellCur - (PUBLIC KEY, CURRENCY ABREVIATION, AMOUNT OF TOKENS)
-/send - (RECIPIENT, SENDER, AMOUNT OF TOKENS, CURRENCY ABREVIATION)
-/createCurrency - (NAME OF CUR, AMOUNT OF TOKENS, CURRRENCY ABREVIATION, LIQUIDITY, OWNER) 
-/addBalance - (PUBLIC KEY, AMOUNT)
-/newTrans - (DATA, PUBLIC KEY, AMOUNT OF TOKENS, CURRENCY ABV)
-```
+# Route Docs
+https://github.com/JDStephens31/mineverse/wiki
