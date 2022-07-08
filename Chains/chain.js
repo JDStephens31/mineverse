@@ -382,15 +382,17 @@ class BlockChain {
             }
         }
     }
-    mine() {
+    mine(publicKey) {
         if (this.isValidChain(this.blockchain) === true) {
-            console.log(this.isValidChain(this.blockchain));
+            console.log("Blockchain is already valid. No mining needed");
+            return false;
         } else if (this.isValidChain(this.blockchain) === false) {
             let x;
             for (let i = 1; i < this.blockchain.length; i++) {
                 x = i - 1;
                 this.blockchain[i].prevHash = this.blockchain[x].hash;
-                this.blockchain[i].hash = this.computeHash(this.blockchain[i].data, this.blockchain[i].prevHash, this.blockchain[i].timestamp, this.blockchain[i].contractee, this.blockchain[i].contracter, this.blockchain[i].cost, this.blockchain[i].balance, this.blockchain[i]);     
+                this.blockchain[i].hash = this.computeHash(this.blockchain[i].data, this.blockchain[i].prevHash, this.blockchain[i].timestamp, this.blockchain[i].contractee, this.blockchain[i].contracter, this.blockchain[i].cost, this.blockchain[i].balance, this.blockchain[i]);
+                this.addBalance(publicKey, 100);
                 return true;   
             }
         }

@@ -97,7 +97,7 @@ app.post('/createContract', (req, res)=> {
 });
 
 //Mines Chain and makes the  chain valid
-app.get('/mine', (req, res)=> {
-    chain.mine();
+app.post('/mine', (req, res)=> {
+    chain.mine(req.body.publicKey);
     res.sendStatus(200);
 });
