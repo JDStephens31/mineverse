@@ -89,3 +89,9 @@ app.post('/vote', (req, res)=> {
     chain.vote(req.body.hash, req.body.vote);
     res.sendStatus(200);
 })
+
+//Creates a contract
+app.post('/createContract', (req, res)=> {
+    chain.createContract(req.body.data, req.body.contracter, req.body.contractee, req.body.cost, req.body.days);
+    res.sendStatus(200);
+})

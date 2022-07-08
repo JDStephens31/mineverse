@@ -2,6 +2,7 @@ const Block = require("../Blocks/data-block")
 const crypto = require('crypto');
 const CurInfoBlock = require("./subChain/curInfoBlock");
 const transaction = require('../Blocks/transaction');
+const contract = require('../Blocks/contract');
 const SubChain = require("./subChain/subChain");
 const vote = require('../Voting/vote')
 
@@ -353,5 +354,25 @@ class BlockChain {
             }
         }
     }
+    createContract(data, contracter, contractee, cost, days) {
+        let newContract = new contract(data, contracter, contractee, cost, days);
+        this.addNewBlock(newContract);
+        let endTime = newContract.endTime;
+        let hash = newContract.hash;
+        let setTime = endTime - Date.now();
+        setTimeout(() => {
+            this.endContract(hash, contracter, contractee, cost);
+        }, setTime);
+    }
+    endContract(hash, contracter, contractee, cost) {
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if (this.blockchain[i].hash === hash) {
+                this.blockchain[i].running = false;
+                this.send(contracter, contractee, cost, "def"); 
+                return (this.blockchain[i].hash);
+            }
+        }
+    }
+
 }
 module.exports = BlockChain;
