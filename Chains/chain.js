@@ -16,6 +16,18 @@ class BlockChain {
     obtainLatestBlock() {
         return this.blockchain[this.blockchain.length - 1]
     }
+    computeHash(data, prevHash, timestamp, contractee, contracter, cost, balance, block) {
+        if (block.type === 'contract') {
+            let strBlock = prevHash + timestamp + cost + contractee + contracter + JSON.stringify(data) // Stringify the block's data
+            return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
+        } else if(block.type === 'vote' || block.type === 'cur' || block.type === 'data') {
+            let strBlock = prevHash + timestamp + JSON.stringify(data) // Stringify the block's data
+            return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
+        } else if(block.type === 'wallet') {
+            let strBlock = prevHash + timestamp + balance + JSON.stringify(data) // Stringify the block's data
+            return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
+        }
+    }
     addNewBlock(newBlock) {
         newBlock.prevHash = this.obtainLatestBlock().hash
         newBlock.hash = newBlock.computeHash()
@@ -37,14 +49,11 @@ class BlockChain {
             let lastBlock = blockchain[i - 1];
 
             if (block.prevHash !== lastBlock.hash) {
-                console.log('InValid');
                 return false;
             } else if (block.hash !== this.computeVHash(block.prevHash, block.timestamp, block.data)) {
-                console.log('InValid');
                 return false;
             }
         }
-        console.log('Valid');
         return true;
     }
     computeVHash(prevHash, timestamp, data) {
@@ -368,8 +377,21 @@ class BlockChain {
         for (let i = 0; i < this.blockchain.length; i++) {
             if (this.blockchain[i].hash === hash) {
                 this.blockchain[i].running = false;
-                this.send(contracter, contractee, cost, "def"); 
+                this.send(contracter, contractee, cost, "def");
                 return (this.blockchain[i].hash);
+            }
+        }
+    }
+    mine() {
+        if (this.isValidChain(this.blockchain) === true) {
+            console.log(this.isValidChain(this.blockchain));
+        } else if (this.isValidChain(this.blockchain) === false) {
+            let x;
+            for (let i = 1; i < this.blockchain.length; i++) {
+                x = i - 1;
+                this.blockchain[i].prevHash = this.blockchain[x].hash;
+                this.blockchain[i].hash = this.computeHash(this.blockchain[i].data, this.blockchain[i].prevHash, this.blockchain[i].timestamp, this.blockchain[i].contractee, this.blockchain[i].contracter, this.blockchain[i].cost, this.blockchain[i].balance, this.blockchain[i]);     
+                return true;   
             }
         }
     }

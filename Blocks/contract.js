@@ -3,7 +3,7 @@ class contract {
     constructor(data, contracter, contractee, cost, days, prevHash = ""){
         this.timestamp = Date.now(); 
         this.endTime = this.timestamp + days * 86400000;
-        this.type = 'Contract'
+        this.type = 'contract'
         this.prevHash = prevHash;
         this.hash = this.computeHash();
         this.data = data;

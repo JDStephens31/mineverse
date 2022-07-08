@@ -3,6 +3,7 @@ const crypto = require('crypto'); // Import NodeJS's Crypto Module
 class Block { // Our Block Class
     constructor(data, prevHash = "") {
         this.timestamp = Date.now(); // Get the current timestamp
+        this.type = 'data'
         this.data = data; // Store whatever data is relevant 
         this.prevHash = prevHash // Store the previous block's hash
         this.hash = this.computeHash() // Compute this block's hash

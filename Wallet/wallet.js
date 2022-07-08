@@ -15,7 +15,7 @@ class wallet { // Our Block Class
         this.keyHash = this.computekeyWordHash(); // Computing Hash based on keywords
     }
     computeHash() { // Compute this Block's hash
-        let strBlock = this.prevHash + this.timestamp + JSON.stringify(this.data) // Stringify the block's data
+        let strBlock = this.prevHash + this.timestamp + this.balance + JSON.stringify(this.data) // Stringify the block's data
         return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
     }
     computeVHash(prevHash, timestamp, data) { // Compute Validy hash

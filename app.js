@@ -94,4 +94,10 @@ app.post('/vote', (req, res)=> {
 app.post('/createContract', (req, res)=> {
     chain.createContract(req.body.data, req.body.contracter, req.body.contractee, req.body.cost, req.body.days);
     res.sendStatus(200);
-})
+});
+
+//Mines Chain and makes the  chain valid
+app.get('/mine', (req, res)=> {
+    chain.mine();
+    res.sendStatus(200);
+});
