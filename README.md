@@ -5,7 +5,7 @@ Like the metaverse, but in minecraft.
 - [x] Ability to Create Currencies
 - [x] Ability to send any Currency to someone
 - [x] Ability to buy and sell any currency
-- [ ] Ability to vote based on the amount of balance
+- [x] Ability to vote on new features and changes
 - [ ] Add Snapshot feature
 - [ ] Contact Blocks that run functions at a specific time
 - [ ] Java Minecraft mod to connect to the chain via API
