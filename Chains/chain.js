@@ -1,6 +1,7 @@
 const Block = require("../Blocks/data-block")
 const crypto = require('crypto');
 const CurInfoBlock = require("./subChain/curInfoBlock");
+const wallet = require("../Wallet/wallet")
 const transaction = require('../Blocks/transaction');
 const contract = require('../Blocks/contract');
 const SubChain = require("./subChain/subChain");
@@ -20,10 +21,10 @@ class BlockChain {
         if (block.type === 'contract') {
             let strBlock = prevHash + timestamp + cost + contractee + contracter + JSON.stringify(data) // Stringify the block's data
             return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
-        } else if(block.type === 'vote' || block.type === 'cur' || block.type === 'data') {
+        } else if (block.type === 'vote' || block.type === 'cur' || block.type === 'data') {
             let strBlock = prevHash + timestamp + JSON.stringify(data) // Stringify the block's data
             return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
-        } else if(block.type === 'wallet') {
+        } else if (block.type === 'wallet') {
             let strBlock = prevHash + timestamp + balance + JSON.stringify(data) // Stringify the block's data
             return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
         }
@@ -80,6 +81,10 @@ class BlockChain {
             }
         }
     }
+    createWallet(uuid) {
+        let wal = new wallet(uuid);
+        this.addNewBlock(wal);
+    }
     addBalance(publicKey, amount) {
         for (let i = 0; i < this.blockchain.length; i++) {
             if (this.blockchain[i].publicKey && this.blockchain[i].publicKey == publicKey) {
@@ -93,34 +98,44 @@ class BlockChain {
         let currencyP;
         let currencyL;
         let balance;
-        for (let i = 0; i < this.blockchain.length; i++) {
-            if (this.blockchain[i].abv === cur) {
+        for (let e = 0; e < this.blockchain.length; e++) {
+            if (this.blockchain[e].abv === cur) {
                 this.calcPrices();
-                currencyL = this.blockchain[i].liquidity;
-                currencyP = this.blockchain[i].price;
+                currencyL = this.blockchain[e].liquidity;
+                currencyP = this.blockchain[e].price;
             }
         }
         for (let i = 0; i < this.blockchain.length; i++) {
-            if (this.blockchain[i].publicKey === publicKey) {
+            if (this.blockchain[i].publicKey == publicKey) {
                 balance = this.blockchain[i].balance;
-                for (let x = 1; x < this.blockchain[i].data.length; x++) {
-                    if (balance < amount * currencyP) {
-                        console.error("Error: Not Enough Funds")
-                        return false;
-                    } else if (typeof (this.blockchain[i].data[x]) === 'undefined') {
-                        this.blockchain[i].data.push({ [cur]: 0 })
-                        console.log(this.blockchain[i].data[x])
-                        this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
-                        console.log('Balance Updated With Data Updating');
-                        return true;
-                    } else if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
-                        this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
-                        console.log('Balance Updated Without Updating Data')
-                        return true;
+                if (this.blockchain[i].data.length === 1) {
+                    this.blockchain[i].data.push({ [cur]: 0 })
+                    this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
+                    console.log('Balance Updated With Data Updating');
+                    return true;
+                } else {
+                    for (let x = 1; x < this.blockchain[i].data.length; x++) {
+                        console.log("Here")
+                        if (balance < amount * currencyP) {
+                            console.error("Error: Not Enough Funds")
+                            return false;
+                        } else if (typeof (this.blockchain[i].data[x][cur]) == 'number') {
+                            this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
+                            console.log('Balance Updated Without Updating Data')
+                            return true;
+                        } else {
+                            this.blockchain[i].data.push({ [cur]: 0 })
+                            console.log(this.blockchain[i].data[x])
+                            this.bUpdateWCL(currencyL, currencyP, balance, amount, cur, publicKey);
+                            console.log('Balance Updated With Data Updating');
+                            return true;
+                        }
                     }
                 }
+
             }
         }
+        return "Error: Could not find wallet";
 
     }
     bUpdateWCL(liquid, price, balance, amount, cur, publicKey) {
@@ -393,7 +408,7 @@ class BlockChain {
                 this.blockchain[i].prevHash = this.blockchain[x].hash;
                 this.blockchain[i].hash = this.computeHash(this.blockchain[i].data, this.blockchain[i].prevHash, this.blockchain[i].timestamp, this.blockchain[i].contractee, this.blockchain[i].contracter, this.blockchain[i].cost, this.blockchain[i].balance, this.blockchain[i]);
                 this.addBalance(publicKey, 100);
-                return true;   
+                return true;
             }
         }
     }
