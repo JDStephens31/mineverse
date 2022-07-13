@@ -23,7 +23,6 @@ class BlockChain {
         let data = fs.readFileSync("./SNAPSHOT.json");
         let chain = JSON.parse(data);
         this.blockchain = chain;
-        console.log(chain);
     }
     snapshot(){
         fs.writeFile('./SNAPSHOT.json', JSON.stringify(this.blockchain, null, 2), callback);
