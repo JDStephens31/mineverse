@@ -97,3 +97,13 @@ app.post('/createWallet', (req, res) => {
     chain.createWallet(req.body.uuid);
     res.sendStatus(200);
 })
+
+//Creates a snapshot of the blockchain
+app.get("/snapshot", (req, res) => {
+    res.send(chain.snapshot());
+});
+
+//Uploads the Existing data to the blockchain
+app.get("/reload", (req, res) => {
+    res.send(chain.reload());
+});

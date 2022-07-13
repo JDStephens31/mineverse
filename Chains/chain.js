@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Block = require("../Blocks/data-block")
 const crypto = require('crypto');
 const CurInfoBlock = require("./subChain/curInfoBlock");
@@ -13,6 +14,26 @@ class BlockChain {
     }
     startGenesisBlock() {
         return new Block({})
+    }
+    restart(){
+        this.snapshot();
+        this.reload();
+    }
+    reload() {
+        let data = fs.readFileSync("./SNAPSHOT.json");
+        let chain = JSON.parse(data);
+        this.blockchain = chain;
+        console.log(chain);
+    }
+    snapshot(){
+        fs.writeFile('./SNAPSHOT.json', JSON.stringify(this.blockchain, null, 2), callback);
+        function callback(err){
+            if(err) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
     obtainLatestBlock() {
         return this.blockchain[this.blockchain.length - 1]
