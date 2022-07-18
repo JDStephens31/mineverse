@@ -1,5 +1,6 @@
 # Mine-verse
 Like the metaverse, but in minecraft.
+This Blockchain is *NOT* a P2P network
 
 # Features
 - [x] Ability to Create Currencies
