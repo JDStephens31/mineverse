@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": 1658164917161,
+    "type": "data",
+    "data": {},
+    "prevHash": "",
+    "hash": "c5391610aea8a28356827903095fe76b60add04a27ce71f445bfbc05a4f9c900"
+  },
+  {
+    "timestamp": 1658164917161,
+    "type": "data",
+    "data": "Hello",
+    "prevHash": "c5391610aea8a28356827903095fe76b60add04a27ce71f445bfbc05a4f9c900",
+    "hash": "5640dc3bd6c415af2e6d9cdb4048da5d5845b8644773bb2c6c3f4544c8a1a840"
+  }
+]

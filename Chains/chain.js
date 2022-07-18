@@ -1,16 +1,15 @@
 const fs = require('fs');
-const Block = require("../Blocks/data-block")
+const Block = require("../Blocks/data-block");
 const crypto = require('crypto');
 const CurInfoBlock = require("./subChain/curInfoBlock");
 const wallet = require("../Wallet/wallet")
 const transaction = require('../Blocks/transaction');
 const contract = require('../Blocks/contract');
 const SubChain = require("./subChain/subChain");
-const vote = require('../Voting/vote')
-
+const vote = require('../Voting/vote');
 class BlockChain {
     constructor() {
-        this.blockchain = [this.startGenesisBlock()]
+        this.blockchain = [this.startGenesisBlock()];
     }
     startGenesisBlock() {
         return new Block({})
@@ -52,7 +51,8 @@ class BlockChain {
     addNewBlock(newBlock) {
         newBlock.prevHash = this.obtainLatestBlock().hash
         newBlock.hash = newBlock.computeHash()
-        this.blockchain.push(newBlock)
+        this.blockchain.push(newBlock);
+        this.replaceChain(this.blockchain);
     }
     addNewSubChain(newChain) {
         newChain.prevHash = this.obtainLatestBlock().hash

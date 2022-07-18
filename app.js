@@ -1,12 +1,9 @@
 //Getting Packages
 const express = require("express");
 const bodyParser = require("body-parser");
-const P2pServer = require('./p2p-server');
 const BlockChain = require("./Chains/chain");
 const Block = require("./Blocks/data-block");
-// const CurInfoBlock = require("./Chains/subChain/curInfoBlock");
-// const SubChain = require("./Chains/subChain/subChain");
-const wallet = require('./Wallet/wallet');
+
 //Setup
 const app = express();
 
@@ -15,23 +12,13 @@ app.use(bodyParser.json());
 
 // Init our chain
 let chain = new BlockChain();
-
-// Init the main chain
-let mainChain = new BlockChain();
-
-// Init our P2P server
-const p2pServer = new P2pServer(mainChain.blockchain);
-p2pServer.listen();
-
-//Adding Current Chain to Main & Validating Chain
-mainChain.replaceChain(chain.blockchain);
-
 // Creating a normal block - new Block(DATA))
 let a = new Block("Hello");
 chain.addNewBlock(a);
 
+const HTTP_PORT = process.env.HTTP_PORT || 8080
 //Listen
-app.listen(8080, () => {
+app.listen(HTTP_PORT, () => {
     console.log('App is running on port 8080')
 })
 
