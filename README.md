@@ -9,9 +9,8 @@ This Blockchain is *NOT* a P2P network
 - [x] Ability to vote on new features and changes
 - [x] Add Snapshot feature
 - [x] Contact Blocks that run functions at a specific time
-- [ ] Java Minecraft mod to connect to the chain via API
-- [ ] Ability to send items to the chain on a mc server then pull them down on a different server 
-- [ ] Ability to buy chunks and have ownership on the chain
+- [x] Java Minecraft mod to connect to the chain via API
+- [x] Ability to send items to the chain on a mc server then pull them down on a different server 
 
 
 # How to launch chain
