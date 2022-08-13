@@ -1,7 +1,7 @@
 # Mine-verse
 Like the metaverse, but in minecraft.
 This Blockchain is *NOT* a P2P network
-The MOD part of this blockchain is here https://github.com/JDStephens31/Mineverse-Blockchain-Java
+> The MOD part of this blockchain is here https://github.com/JDStephens31/Mineverse-Blockchain-Java
 
 # Features
 - [x] Ability to Create Currencies
