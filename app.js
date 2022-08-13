@@ -94,3 +94,14 @@ app.get("/snapshot", (req, res) => {
 app.get("/reload", (req, res) => {
     res.send(chain.reload());
 });
+
+//Recieves Inventory From Player
+app.post("/sendIn", (req, res) => {
+    chain.recInventory(req.body.inventory, req.body.uuid);
+    res.sendStatus(200);
+});
+
+//Send Inventory to Player
+app.post("/recIn", (req, res) => {
+    res.send(chain.sendInventory(req.body.uuid));
+});

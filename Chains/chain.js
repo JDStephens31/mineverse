@@ -5,6 +5,7 @@ const CurInfoBlock = require("./subChain/curInfoBlock");
 const wallet = require("../Wallet/wallet")
 const transaction = require('../Blocks/transaction');
 const contract = require('../Blocks/contract');
+const inventoryB = require("../Blocks/inventory");
 const SubChain = require("./subChain/subChain");
 const vote = require('../Voting/vote');
 class BlockChain {
@@ -431,6 +432,20 @@ class BlockChain {
                 return true;
             }
         }
+    }
+    recInventory(inventory, uuid) {
+        let inv = new inventoryB(inventory, uuid);
+        this.addNewBlock(inv);
+    }
+    sendInventory(uuid) {
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if(this.blockchain[i].uuid === uuid) { 
+                let block = this.blockchain[i];
+                this.blockchain.splice( this.blockchain.indexOf(block), 1); 
+                return block.data;
+            }
+        }
+        return false;
     }
 
 }
