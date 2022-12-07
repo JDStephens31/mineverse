@@ -12,6 +12,9 @@ app.use(bodyParser.json());
 
 // Init our chain
 let chain = new BlockChain();
+//Start Peer to Peer Server
+chain.startPTP();
+
 // Creating a normal block - new Block(DATA))
 let a = new Block("Hello");
 chain.addNewBlock(a);
@@ -28,6 +31,17 @@ app.get("/", (req, res) => {
     res.json(chain.blockchain);
 })
 
+app.post('/verifyChain', (req, res) => {
+    chain.verifyChain(req.body.chain, req.body.publicKey);
+    setTimeout(() => {
+        res.json({
+            status: "Chain has been replaced",
+            newChain: chain.replaceChainWithVerified()
+        });
+        
+    }, 5000);
+    
+})
 //Buy Currency
 app.post('/buyCur', (req, res) => {
     res.send(chain.buyCur(req.body.publicKey, req.body.cur, req.body.amount));
@@ -81,8 +95,7 @@ app.post('/mine', (req, res) => {
 
 //Creates a wallet
 app.post('/createWallet', (req, res) => {
-    chain.createWallet(req.body.uuid);
-    res.sendStatus(200);
+    res.json(chain.createWallet(req.body.uuid))
 })
 
 //Creates a snapshot of the blockchain

@@ -8,14 +8,37 @@ const contract = require('../Blocks/contract');
 const inventoryB = require("../Blocks/inventory");
 const SubChain = require("./subChain/subChain");
 const vote = require('../Voting/vote');
+
+//Peer to Peer Server Setup
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 class BlockChain {
     constructor() {
         this.blockchain = [this.startGenesisBlock()];
+        this.chains = [];
+        this.peers = [];
     }
     startGenesisBlock() {
         return new Block({})
     }
-    restart(){
+    startPTP() {
+        io.on('connection', (socket) => {
+            socket.on('message', (msg) => {
+                io.emit('message', msg);
+            });
+            this.peers.push(socket.id);
+            io.emit('NEW_PEER', "New Peer Connected " + socket.id);
+        });
+        server.listen(3000, () => {
+            console.log('listening on *:3000');
+        });
+    }
+    restart() {
         this.snapshot();
         this.reload();
     }
@@ -24,10 +47,10 @@ class BlockChain {
         let chain = JSON.parse(data);
         this.blockchain = chain;
     }
-    snapshot(){
+    snapshot() {
         fs.writeFile('./SNAPSHOT.json', JSON.stringify(this.blockchain, null, 2), callback);
-        function callback(err){
-            if(err) {
+        function callback(err) {
+            if (err) {
                 return false;
             } else {
                 return true;
@@ -37,7 +60,7 @@ class BlockChain {
     obtainLatestBlock() {
         return this.blockchain[this.blockchain.length - 1]
     }
-    computeHash(data, prevHash, timestamp, contractee, contracter, cost, balance, block) {
+    computeHash(data, prevHash, timestamp, contractee, contracter, cost, block) {
         if (block.type === 'contract') {
             let strBlock = prevHash + timestamp + cost + contractee + contracter + JSON.stringify(data) // Stringify the block's data
             return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
@@ -45,15 +68,14 @@ class BlockChain {
             let strBlock = prevHash + timestamp + JSON.stringify(data) // Stringify the block's data
             return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
         } else if (block.type === 'wallet') {
-            let strBlock = prevHash + timestamp + balance + JSON.stringify(data) // Stringify the block's data
+            let strBlock = prevHash + timestamp + JSON.stringify(data) // Stringify the block's data
             return crypto.createHash("sha256").update(strBlock).digest("hex") // Hash said string with SHA256 encrpytion
         }
     }
     addNewBlock(newBlock) {
         newBlock.prevHash = this.obtainLatestBlock().hash
         newBlock.hash = newBlock.computeHash()
-        this.blockchain.push(newBlock);
-        this.replaceChain(this.blockchain);
+        io.emit('message', newBlock);
     }
     addNewSubChain(newChain) {
         newChain.prevHash = this.obtainLatestBlock().hash
@@ -65,6 +87,53 @@ class BlockChain {
             console.log(block);
         }
     }
+    verifyChain(chain, pubKey) {
+        for (let i = 0; i < this.chains.length; i++) {
+            if (this.chains[i].chain === chain) {
+                this.chains[i].votes++;
+                this.chains[i].wallets.push(pubKey);
+                return true;
+            }
+        }
+        this.chains.push({
+            chain: chain,
+            votes: 1,
+            wallets: [pubKey]
+        });
+        return true;
+    }
+    replaceChainWithVerified() {
+        let max = 0;
+        for (let i = 0; i < this.chains.length; i++) {
+            if (this.chains[i].votes > max) {
+                max = this.chains[i].votes;
+            }
+        }
+        if(this.chains.length > 1) {
+            for (let i = 0; i < this.chains.length; i++) {
+                if (this.chains[i].votes === max) {
+                    let newChain = JSON.parse(this.chains[i].chain);
+                    this.replaceChain(newChain);
+                    this.chains[i].wallets.forEach(wallet => {
+                        console.log("1");
+                        console.log(wallet)
+                        this.addBalance(wallet, 50);
+                    });
+                    return JSON.stringify(newChain);
+                }
+            }
+        } else {
+            this.replaceChain(this.chains[0].chain);
+            this.chains[0].wallets.forEach(wallet => {
+                console.log("2");
+                console.log(wallet)
+                this.addBalance(toString(wallet), 50);
+            });
+            return JSON.stringify(this.chains[0].chain);
+        }
+        
+    }
+
     isValidChain(blockchain) {
         for (let i = 1; i < blockchain.length; i++) {
             let block = blockchain[i];
@@ -72,28 +141,19 @@ class BlockChain {
 
             if (block.prevHash !== lastBlock.hash) {
                 return false;
-            } else if (block.hash !== this.computeVHash(block.prevHash, block.timestamp, block.data)) {
+            } else if (block.hash !== this.computeVHash(block.prevHash, block.timestamp, block.type)) {
                 return false;
             }
         }
         return true;
     }
     computeVHash(prevHash, timestamp, data) {
-        let Block = prevHash + timestamp + JSON.stringify(data)
+        let Block = prevHash + timestamp + JSON.stringify(type)
         return crypto.createHash("sha256").update(Block).digest("hex")
     }
     replaceChain(newChain) {
-        if (newChain.length <= this.blockchain.length) {
-            console.log("Chain too small");
-            return;
-        } else if (!this.isValidChain(newChain)) {
-            console.log("received chain is not valid")
-            return;
-        } else {
-            console.log("Replacing blockchain with the new chain");
-            this.blockchain = newChain;
-            return;
-        }
+        this.blockchain = JSON.parse(newChain);
+        return this.blockchain;
     }
     calcPrices() {
         for (let i = 0; i < this.blockchain.length; i++) {
@@ -105,6 +165,7 @@ class BlockChain {
     createWallet(uuid) {
         let wal = new wallet(uuid);
         this.addNewBlock(wal);
+        return wal;
     }
     addBalance(publicKey, amount) {
         for (let i = 0; i < this.blockchain.length; i++) {
@@ -439,14 +500,21 @@ class BlockChain {
     }
     sendInventory(uuid) {
         for (let i = 0; i < this.blockchain.length; i++) {
-            if(this.blockchain[i].uuid === uuid) { 
+            if (this.blockchain[i].uuid === uuid) {
                 let block = this.blockchain[i];
-                this.blockchain.splice( this.blockchain.indexOf(block), 1); 
+                this.blockchain.splice(this.blockchain.indexOf(block), 1);
                 return block.data;
             }
         }
         return false;
     }
-
+    //Get specific block
+    getBlock(hash) {
+        for (let i = 0; i < this.blockchain.length; i++) {
+            if (this.blockchain[i].hash === hash) {
+                return this.blockchain[i];
+            }
+        }
+    }
 }
 module.exports = BlockChain;
