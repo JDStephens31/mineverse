@@ -1,16 +1,67 @@
 [
   {
-    "timestamp": 1658164917161,
+    "timestamp": 1663884550532,
     "type": "data",
     "data": {},
     "prevHash": "",
-    "hash": "c5391610aea8a28356827903095fe76b60add04a27ce71f445bfbc05a4f9c900"
+    "hash": "6a8b92da3956d5a1ec0d74fdad1144c3e2a547e8f9f579593ed44d4590d1e7ec"
   },
   {
-    "timestamp": 1658164917161,
+    "timestamp": 1663884550533,
     "type": "data",
     "data": "Hello",
-    "prevHash": "c5391610aea8a28356827903095fe76b60add04a27ce71f445bfbc05a4f9c900",
-    "hash": "5640dc3bd6c415af2e6d9cdb4048da5d5845b8644773bb2c6c3f4544c8a1a840"
+    "prevHash": "6a8b92da3956d5a1ec0d74fdad1144c3e2a547e8f9f579593ed44d4590d1e7ec",
+    "hash": "078d2ee0130d6d2fa33a61fc17b01931d2904d3db25c5184e974661cdc9deec7"
+  },
+  {
+    "timestamp": 1663884608317,
+    "type": "wallet",
+    "data": [
+      {
+        "PLACEHOLDER": 0
+      },
+      {
+        "LC": 50000
+      }
+    ],
+    "prevHash": "078d2ee0130d6d2fa33a61fc17b01931d2904d3db25c5184e974661cdc9deec7",
+    "hash": "4fc28fe1d0dcc7b6c17587eae2c8a1c437d6464e5cfcf861e72245c68876162a",
+    "balance": 9000,
+    "uuid": "nothing",
+    "publicKey": "04ada7f22762111b77f44717ef6b9646f0eadab1322dce3fce5d3cd0c667744c1fc75dc35b4e71d3cf0ee1325adf37ce44f1c05200070c3a4c05d78e013514f031",
+    "keyWords": [
+      "ten",
+      "eightteen",
+      "eightteen",
+      "eleven",
+      "twenty",
+      "twelve",
+      "sixteen"
+    ],
+    "keyHash": "1eec312309be65e9b9b91cd7d30e73e6b00ec976dd91f1fd5f762d56fdf95d92"
+  },
+  {
+    "timestamp": 1663884629847,
+    "type": "cur",
+    "data": [
+      {
+        "timestamp": 1663884629847,
+        "type": "transaction",
+        "data": "Genisis Transaction",
+        "prevHash": "",
+        "hash": "d925c673c8ad480b2a895cda48b8799a633376a364884363c0b611b74f65f052",
+        "currency": "GEN",
+        "publicKey": "GenPubKey",
+        "amount": 0
+      }
+    ],
+    "prevHash": "4fc28fe1d0dcc7b6c17587eae2c8a1c437d6464e5cfcf861e72245c68876162a",
+    "hash": "1901eba7498261865cf5f1b93cde3a235a837c6b404d11dc8ee4c501a05c3cca",
+    "amount": 950000,
+    "name": "Luke Coin",
+    "abv": "LC",
+    "liquidity": 1000,
+    "price": 0.0010526315789473684,
+    "owner": "04ada7f22762111b77f44717ef6b9646f0eadab1322dce3fce5d3cd0c667744c1fc75dc35b4e71d3cf0ee1325adf37ce44f1c05200070c3a4c05d78e013514f031"
   }
 ]
