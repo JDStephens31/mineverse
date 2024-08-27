@@ -75,7 +75,8 @@ class BlockChain {
     addNewBlock(newBlock) {
         newBlock.prevHash = this.obtainLatestBlock().hash
         newBlock.hash = newBlock.computeHash()
-        io.emit('message', newBlock);
+        // io.emit('message', newBlock);
+        this.blockchain.push(newBlock)
     }
     addNewSubChain(newChain) {
         newChain.prevHash = this.obtainLatestBlock().hash

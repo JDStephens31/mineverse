@@ -1,67 +1,147 @@
 [
   {
-    "timestamp": 1663884550532,
+    "timestamp": 1723659601805,
     "type": "data",
     "data": {},
     "prevHash": "",
-    "hash": "6a8b92da3956d5a1ec0d74fdad1144c3e2a547e8f9f579593ed44d4590d1e7ec"
+    "hash": "fee416a4545e256b8a5ca63e2d81359c08c0ec2dcd4ea27626159f35b754f80e"
   },
   {
-    "timestamp": 1663884550533,
+    "timestamp": 1723659601809,
     "type": "data",
     "data": "Hello",
-    "prevHash": "6a8b92da3956d5a1ec0d74fdad1144c3e2a547e8f9f579593ed44d4590d1e7ec",
-    "hash": "078d2ee0130d6d2fa33a61fc17b01931d2904d3db25c5184e974661cdc9deec7"
+    "prevHash": "fee416a4545e256b8a5ca63e2d81359c08c0ec2dcd4ea27626159f35b754f80e",
+    "hash": "16c667516f467618c2f85de4066aee437b62ecd5e0dc4df0517144049a41c7e6"
   },
   {
-    "timestamp": 1663884608317,
+    "timestamp": 1723659606516,
     "type": "wallet",
     "data": [
       {
         "PLACEHOLDER": 0
       },
       {
-        "LC": 50000
+        "AS": 50000
       }
     ],
-    "prevHash": "078d2ee0130d6d2fa33a61fc17b01931d2904d3db25c5184e974661cdc9deec7",
-    "hash": "4fc28fe1d0dcc7b6c17587eae2c8a1c437d6464e5cfcf861e72245c68876162a",
+    "prevHash": "16c667516f467618c2f85de4066aee437b62ecd5e0dc4df0517144049a41c7e6",
+    "hash": "ed516c468db5d90380859c0401ac0b44a9cf7a40458f505693d58c33e0c29702",
     "balance": 9000,
     "uuid": "nothing",
-    "publicKey": "04ada7f22762111b77f44717ef6b9646f0eadab1322dce3fce5d3cd0c667744c1fc75dc35b4e71d3cf0ee1325adf37ce44f1c05200070c3a4c05d78e013514f031",
+    "publicKey": "04d09a953a9e411310d72ccc0e78b8dc283aa2261619ef526d7757d3081eda07b340c531620ff5fecf522f58a27621e8cc64974bd846efdfa79db37bbb1266ee69",
     "keyWords": [
-      "ten",
-      "eightteen",
-      "eightteen",
-      "eleven",
-      "twenty",
-      "twelve",
-      "sixteen"
+      "Saddle",
+      "Redstone Ore",
+      "End Portal Frame",
+      "Wooden Axe",
+      "Red Sand",
+      "Golden Chestplate",
+      "Magenta Stained Glass",
+      "Redstone Lamp (inactive)",
+      "Jungle Wood Plank",
+      "Spawn Ocelot",
+      "Dropper",
+      "Clay",
+      "White Stained Glass Pane"
     ],
-    "keyHash": "1eec312309be65e9b9b91cd7d30e73e6b00ec976dd91f1fd5f762d56fdf95d92"
+    "keyHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
   },
   {
-    "timestamp": 1663884629847,
+    "timestamp": 1723659759183,
     "type": "cur",
     "data": [
       {
-        "timestamp": 1663884629847,
+        "timestamp": 1723659759183,
         "type": "transaction",
         "data": "Genisis Transaction",
         "prevHash": "",
-        "hash": "d925c673c8ad480b2a895cda48b8799a633376a364884363c0b611b74f65f052",
+        "hash": "9f89ae0e81cf090f5619088a6843eb54473641afc1c7386f85efcc569ebdc530",
         "currency": "GEN",
         "publicKey": "GenPubKey",
         "amount": 0
+      },
+      {
+        "timestamp": 1723659942362,
+        "type": "transaction",
+        "data": "buy",
+        "prevHash": "9f89ae0e81cf090f5619088a6843eb54473641afc1c7386f85efcc569ebdc530",
+        "hash": "afea306c35524546f27dfb259446cecac46220f43e1fa0a346e6570c4f16f3b9",
+        "currency": "AS",
+        "publicKey": "0472e26efcfda88960ec8d324a12deb1a13cd9d8d02de3b18fd492d7ce4a2d6ef1bc5b0cee538ecf717868939187f5a8521d3c3a4ff0ed33e7f6d667e5ec63ab63",
+        "amount": 1000
       }
     ],
-    "prevHash": "4fc28fe1d0dcc7b6c17587eae2c8a1c437d6464e5cfcf861e72245c68876162a",
-    "hash": "1901eba7498261865cf5f1b93cde3a235a837c6b404d11dc8ee4c501a05c3cca",
-    "amount": 950000,
-    "name": "Luke Coin",
-    "abv": "LC",
-    "liquidity": 1000,
-    "price": 0.0010526315789473684,
-    "owner": "04ada7f22762111b77f44717ef6b9646f0eadab1322dce3fce5d3cd0c667744c1fc75dc35b4e71d3cf0ee1325adf37ce44f1c05200070c3a4c05d78e013514f031"
+    "prevHash": "ed516c468db5d90380859c0401ac0b44a9cf7a40458f505693d58c33e0c29702",
+    "hash": "7c5a12cd780384a7fc2679bc44f5e1943e24b0cdb158ef7fe23f5cef5e9e3f16",
+    "amount": 949000,
+    "name": "Atlantic Salmon",
+    "abv": "AS",
+    "liquidity": 1001.0526315789474,
+    "price": 0.0010548499805889857,
+    "owner": "04d09a953a9e411310d72ccc0e78b8dc283aa2261619ef526d7757d3081eda07b340c531620ff5fecf522f58a27621e8cc64974bd846efdfa79db37bbb1266ee69"
+  },
+  {
+    "timestamp": 1723659898676,
+    "type": "wallet",
+    "data": [
+      {
+        "PLACEHOLDER": 0
+      },
+      {
+        "AS": 1000
+      }
+    ],
+    "prevHash": "7c5a12cd780384a7fc2679bc44f5e1943e24b0cdb158ef7fe23f5cef5e9e3f16",
+    "hash": "ef0842e2dd3d9bb8b5967d12a8d4adc5253c669539ede9ac7e4af8142515bd9e",
+    "balance": 9998.947368421053,
+    "uuid": "ethan",
+    "publicKey": "0472e26efcfda88960ec8d324a12deb1a13cd9d8d02de3b18fd492d7ce4a2d6ef1bc5b0cee538ecf717868939187f5a8521d3c3a4ff0ed33e7f6d667e5ec63ab63",
+    "keyWords": [
+      "Wheat Seeds",
+      "Spectral Arrow",
+      "Bricks",
+      "Emerald",
+      "Spawn Zombie Villager",
+      "Redstone Comparator",
+      "Banner",
+      "Iron Helmet",
+      "Cake Block",
+      "Melon Block",
+      "Command Block",
+      "Acacia Wood",
+      "Sponge"
+    ],
+    "keyHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "timestamp": 1723660135048,
+    "type": "inventory",
+    "prevHash": "ef0842e2dd3d9bb8b5967d12a8d4adc5253c669539ede9ac7e4af8142515bd9e",
+    "hash": "90d776556aaa8dcaf73696d6fa1ed281993f3f6e396ffca3338a24c613fcec34",
+    "uuid": "abkufvuvavhebhlruyhfenu",
+    "data": "[hello]"
+  },
+  {
+    "timestamp": 1723660243356,
+    "type": "vote",
+    "endTime": 1723660273356,
+    "prevHash": "90d776556aaa8dcaf73696d6fa1ed281993f3f6e396ffca3338a24c613fcec34",
+    "hash": "971ef353ecef3636473b5e2ecd3a17087b9a0c5fbd932ef6d5821062cb9cd0cd",
+    "data": [
+      {
+        "vote": {
+          "statement": [
+            "New Feature?"
+          ],
+          "Yes": {
+            "votes": 0
+          },
+          "No": {
+            "votes": 0
+          }
+        }
+      }
+    ],
+    "running": false
   }
 ]

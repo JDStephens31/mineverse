@@ -50,6 +50,7 @@ app.post('/buyCur', (req, res) => {
 //Sell Currency
 app.post('/sellCur', (req, res) => {
     res.send(chain.sellCur(req.body.publicKey, req.body.cur, req.body.amount));
+
 })
 
 //Create Currency
@@ -96,6 +97,7 @@ app.post('/mine', (req, res) => {
 //Creates a wallet
 app.post('/createWallet', (req, res) => {
     res.json(chain.createWallet(req.body.uuid))
+
 })
 
 //Creates a snapshot of the blockchain
