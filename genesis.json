@@ -1,0 +1,9 @@
+{
+  "chainId": "mineverse-2",
+  "timestamp": 1700000000000,
+  "difficulty": 16,
+  "message": "Mineverse genesis - like the metaverse, but in minecraft",
+  "allocations": {
+    "mvb1e91e103c36739892401e4064ca2d2818e0075c": 100000000
+  }
+}
